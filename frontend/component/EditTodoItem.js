@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ApiService from "../../service/ApiService";
+import ApiService from "../service/ApiService";
 
 class EditTodoItem extends Component {
 
@@ -7,9 +7,9 @@ class EditTodoItem extends Component {
         super(props);
         this.state ={
             id: '',
-            item: '',
+            record: '',
         }
-        this.saveUser = this.saveUser.bind(this);
+        this.saveItem = this.saveItem.bind(this);
         this.loadUser = this.loadUser.bind(this);
     }
 
@@ -18,25 +18,28 @@ class EditTodoItem extends Component {
     }
 
     loadUser() {
-        
+
         ApiService.fetchItemById(window.localStorage.getItem("itemId"))
             .then((res) => {
                 let item = res.data.result;
                 this.setState({
                 id: item.id,
-                username: item.item,
+                record: item.record,
                 })
             });
     }
 
-    onChange = (e) =>
+    onChange = (e) => {
+        // debugger
         this.setState({ [e.target.name]: e.target.value });
+    }
 
-    saveUser = (e) => {
+    saveItem = (e) => {
+        // debugger
         e.preventDefault();
-        let item = {id: this.state.id, item: this.state.item};
-      
-        ApiService.editUser(item)
+        let item = {id: this.state.id, record: this.state.record};
+
+        ApiService.editItem(item)
             .then(res => {
                 this.setState({message : 'Item added successfully.'});
                 this.props.history.push('/todolist');
@@ -51,10 +54,10 @@ class EditTodoItem extends Component {
 
                     <div className="form-group">
                         <label>Todo Item:</label>
-                        <input type="text" placeholder="item" name="item" className="form-control" readonly="true" defaultValue={this.state.item}/>
+                        <input type="text" placeholder="item" name="record" className="form-control"  value={this.state.record} onChange={this.onChange}/>
                     </div>
 
-                    <button className="btn btn-success" onClick={this.saveUser}>Save</button>
+                    <button className="btn btn-success" onClick={this.saveItem}>Save</button>
                 </form>
             </div>
         );

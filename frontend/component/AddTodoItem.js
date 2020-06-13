@@ -14,7 +14,7 @@ class AddTodoItem extends Component{
 
     saveTodoItem = (e) => {
         e.preventDefault();
-        let item = {item: this.state.item};
+        let item = {record: this.state.item};
         // api service
         ApiService.addItem(item)
         .then(() => {

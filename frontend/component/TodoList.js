@@ -62,7 +62,7 @@ class TodoList extends Component {
                             this.state.todoList.map(
                                     item =>
                                     <tr key={item.id}>
-                                        <td>{item.item}</td>
+                                        <td>{item.record}</td>
                                         <td>
                                             <button className="btn btn-success" onClick={() => this.deleteItem(item.id)}> Удалить</button>
                                             <button className="btn btn-success" onClick={() => this.editItem(item.id)}> Редактировать</button>

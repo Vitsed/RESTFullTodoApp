@@ -8,16 +8,16 @@ public class Note {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column
     private String record;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,5 +28,4 @@ public class Note {
     public void setRecord(String record) {
         this.record = record;
     }
-
 }
