@@ -1,6 +1,6 @@
 package com.vitsed.service.impl;
 
-import com.vitsed.dao.NoteDao;
+import com.vitsed.repository.NoteRepository;
 import com.vitsed.model.Note;
 import com.vitsed.model.NoteDto;
 import com.vitsed.service.NoteService;
@@ -18,35 +18,35 @@ import java.util.Optional;
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
-    private NoteDao noteDao;
+    private NoteRepository noteRepository;
 
     @Override
     public Note save(NoteDto item) {
         Note newNote = new Note();
         newNote.setRecord(item.getRecord());
-        return noteDao.save(newNote);
+        return noteRepository.save(newNote);
     }
 
     @Override
     public List<Note> findAll() {
         List<Note> list = new ArrayList<>();
-        noteDao.findAll().iterator().forEachRemaining(list::add);
+        noteRepository.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
     @Override
     public void delete(int id) {
-        noteDao.deleteById(id);
+        noteRepository.deleteById(id);
     }
 
     @Override
     public Note findOne(String item) {
-        return noteDao.findByRecord(item);
+        return noteRepository.findByRecord(item);
     }
 
     @Override
     public Note findById(int id) {
-        Optional<Note> optionalTodoItem = noteDao.findById(id);
+        Optional<Note> optionalTodoItem = noteRepository.findById(id);
         return optionalTodoItem.orElse(null);
     }
 
@@ -55,7 +55,7 @@ public class NoteServiceImpl implements NoteService {
         Note note = findById(noteDto.getId());
         if(note != null) {
             BeanUtils.copyProperties(noteDto, note);
-            noteDao.save(note);
+            noteRepository.save(note);
         }
         return noteDto;
     }
